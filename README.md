@@ -9,6 +9,11 @@ The ideas and format described in this repository are heavily influenced by the
 adapted to the different context of interacting with a Cartesi-based Distributed
 Application, both via Layer 1 inputs or via inspects.
 
+## Current Version
+
+This specification is under early development, and the initial proposal can be
+seen in the [specifications file](specifications.md)
+
 ## Licensing
 
 See: [License (Apache-2.0)](https://github.com/prototyp3-dev/cartesiapi-specification/blob/main/LICENSE)
