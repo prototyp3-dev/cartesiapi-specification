@@ -82,7 +82,7 @@ Fields:
 
 | Field Name  | Type   | Description |
 | ----------- | ------ | ----------- |
-| operationId | string | A unique string used to identify this operation. The id MUST be unique among all operations for this DApp. The `operationId` value is case-sensitive, and MAY be used by automated tools for code generation, therefore, it is recommended to follow common programming naming conventions. |
+| operationId | string | **REQUIRED**. A unique string used to identify this operation. The id MUST be unique among all operations for this DApp. The `operationId` value is case-sensitive, and MAY be used by automated tools for code generation, therefore, it is recommended to follow common programming naming conventions. |
 | summary     | string | A short summary for the operation. |
 | description | string | A long form description for the operation. Can use Markdown for rich text representation. |
 | externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for the opretaion. |
@@ -109,7 +109,7 @@ Fixed Fields:
 | Field Name  | Type   | Description |
 | ----------- | ------ | ----------- |
 | description | string | A long form description for the input. Can use Markdown for rich text representation. |
-| contentType | string | The type of the contents of this input. See discussions below for how to specify this format. |
+| contentType | string | **REQUIRED**. The type of the contents of this input. See discussions below for how to specify this format. |
 | header      | string | Specify whether the content should be prefixed with a sequence of bytes, and how these bytes are formed. See discussion below. By default, `header` is `null`, meaning that nothing should be prepended to the input described by the `contentType` or `schema`. |
 | selectors   | \[string\] | If no header is supplied, the `selectors` field specifies which fields of the schema are used by the application to match this operation. |
 | schema      | [Schema Object](#schema-object) | The schema description for the input |
