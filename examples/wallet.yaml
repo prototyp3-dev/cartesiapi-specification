@@ -1,0 +1,124 @@
+cartesiapi: "0.0.1"
+
+info:
+  name: wallet
+  title: DApp Implementing Cartesi Rollup Wallet Specification
+  version: 0.1.0
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  description: |
+    DAPP implementing the API for standard Cartesi Rollups wallet operations
+  contract:
+    address: "0x142105FC8dA71191b3a13C738Ba0cF4BC33325e2"
+
+
+operations:
+  - operationId: getBalance
+    request_type: inspect
+    summary: "Query the balance of a given address"
+
+    input:
+      contentType: text/uri-list
+      pattern: "/balance/{address}"
+      parameters:
+        - name: address
+          in: path
+          description: "Address whose balance will be returned"
+          required: true
+          schema:
+            type: string
+            pattern: "^0x[a-fA-F0-9]{40}$"
+
+    outputs:
+      # TODO: Review output schema. Please disregard these contents for now.
+      # TODO: add erc1155
+      #
+      # Sample response:
+      # {
+      #   “ether”: 0x0..64,
+      #   “erc20”: {
+      #     // erc20 address -> amount
+      #     “0x491…B5D”: 0x0..64
+      #   },
+      #   “erc721”: {
+      #     // erc721 address -> array of token IDs
+      #     “0xabc…abc”: [0x0..01, 0x0..2a]
+      #   }
+      # }
+      contentType: application/json
+      encoding:
+        type: object
+        properties:
+          ether:
+            type: string
+            pattern: "^0x[0-9a-fA-F]{64}$"
+          erc20:
+            type: object
+            patternProperties:
+              "^0x[a-fA-F0-9]{40}$":
+                type: string
+                pattern: "^0x[0-9a-fA-F]{64}$"
+          erc721:
+            type: object
+            patternProperties:
+              "^0x[a-fA-F0-9]{40}$":
+                type: array
+                items:
+                  type: string
+                  pattern: "^(?!0x0$)0x[0-9a-fA-F]{64}$"
+
+  - operationId: ERC20_Deposit
+    request_type: advance
+    summary: "Deposit ERC-20"
+    description: |
+      Operation of depositing ERC-20 tokens so that they are teleported to the
+      execution layer
+    sender:
+      $ref: '#/components/addresses/ERC20Portal'
+
+    input:
+      contentType: ethereum/abi-packed
+      schema:
+        type: object
+        properties:
+          success:
+            type: bool
+          token:
+            type: address
+          sender:
+            type: address
+          amount:
+            type: uint256
+          execLayerData:
+            type: bytes
+
+    outputs: [] # TODO: write the outputs
+
+  - operationId: ERC20_Withdraw
+    request_type: advance
+    summary: Withdraw ERC-20
+    description: |
+      Operation of withdrawing ERC-20 tokens from the sender's balance on the
+      execution layer, so that they are teleported back to the base layer
+
+    input:
+      contentType: ethereum/abi-packed
+      header: functionKeccak # TODO: review the standard of the headers
+      schema:
+        type: object
+        properties:
+          token:
+            type: address
+          amount:
+            type: uint256
+          execLayerData:
+            type: bytes
+
+    outputs: [] # TODO: Describe the output voucher, notice and report.
+
+components:
+  addresses:
+    ERC20Portal:
+      summary: Address of the ERC20Portal contract
+      address: "0x4340ac4FcdFC5eF8d34930C96BBac2Af1301DF40"
