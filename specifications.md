@@ -83,6 +83,7 @@ Fields:
 | Field Name  | Type   | Description |
 | ----------- | ------ | ----------- |
 | operationId | string | **REQUIRED**. A unique string used to identify this operation. The id MUST be unique among all operations for this DApp. The `operationId` value is case-sensitive, and MAY be used by automated tools for code generation, therefore, it is recommended to follow common programming naming conventions. |
+| namespace   | string | An optional namespace representing, for example, the library or framework that implements this operation. This will be used to compute a header. The default value should be an empty string (""). |
 | summary     | string | A short summary for the operation. |
 | description | string | A long form description for the operation. Can use Markdown for rich text representation. |
 | externalDocs | [External Documentation Object](#external-documentation-object) | Additional external documentation for the opretaion. |
@@ -129,8 +130,8 @@ Discussion points:
 - A null `header` means that nothing should be prefixed to the input.
 - Header can be one of the following:
   - `operationId` to prefix the raw `operationId`
-  - `functionKeccak`: first 4 bytes of the keccak256 for the concatenation of the following bytes:
-    - keccak256 of the name of the framework
+  - `functionKeccak`: the keccak256 for the concatenation of the following bytes:
+    - keccak256 of the `namespace` field, representing the name of the library or framework
     - keccak256 of the `operationId`, which should correspond to the name of the function
     - keccak256 of the expected fields, enclosed in parentheses
     - See [go-rollups' ABI codec](https://github.com/prototyp3-dev/go-rollups/blob/main/handler/abi/codec.go) for reference.
