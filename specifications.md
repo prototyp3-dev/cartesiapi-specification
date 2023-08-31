@@ -164,7 +164,7 @@ in turn, is a superset of the [JSON Schema Specification](https://tools.ietf.org
 
 The OpenAPI schema offers a flexible way of specifying inputs, with provisions
 to XML formatting and type polymorphism. However, in order to support types
-like ABI Encoded data, we must extend the definition to allow for 
+like ABI Encoded data, we must extend the definition to allow for
 [Solidity Data Types](https://docs.soliditylang.org/en/latest/types.html)
 in the `type` field of the definitions.
 
@@ -234,7 +234,6 @@ Fields:
 | $ref       | string | **REQUIRED**. The reference identifier. This MUST be in the form of a RFC3986 URI |
 | summary    | string | A short summary which should override that of the referenced component. If the referenced object type does not allow a `summary` field, then this field has no effect. |
 | description | string | A description which should override that of the referenced component. Markdown may be used for rich text representation. If the referenced object type does not allow a `description` field, then this field has no effect. |
-
 
 ## Future works on the documentation
 
